@@ -1,0 +1,19 @@
+<% include ./partials/header %>
+
+<header id="main-breadcrumb">
+	<div class="container">
+		<nav class="my-3" aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="/category">Category</a></li>
+				<li class="breadcrumb-item"><a href="/explore/<%= product.category %>/all"><%= product.category %></a></li>
+				<li class="breadcrumb-item active"><%= product.title %></li>
+			</ol>
+		</nav>
+	</div>
+</header>
+
+<div class="container py-3 d-flex align-items-center">
+	<% include ../uni-showcase %>
+</div>
+
+<% include ./partials/footer %>

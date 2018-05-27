@@ -1,0 +1,49 @@
+<div class="container no-gutters">
+ <div class="d-flex flex-row mb-3">
+  <img style="height:400px; width:600px;" src="/webpage/img/mockups/img200x200.svg"></img>
+		<div class="container py-3">
+			<h1><%= product.title %></h1>
+			<h3>RM<%= product.price %></h3>
+	  <h6><span class="badge badge-secondary"><%= product.category %></span></h6>
+  	<small><%= product.description %></small>
+ 	</div>
+ </div>
+
+ <div class="card mb-3" style="width: 100%">
+  <div class="card-header">Product details</div>
+ 	<div class="card-body">
+ 	 <div class="row mb-3">
+ 	  <div class="col-md-6">
+   	 <h6 class="text-muted">Brand</h6>
+   		<p><%= product.brand %></p>
+   		<h6 class="text-muted">Model</h6>
+   		<p><%= product.model %></p>
+   		<h6 class="text-muted">Manufacturer</h6>
+   		<p><%= product.manufacturer %></p>
+   		<h6 class="text-muted">Made in</h6>
+   		<p><%= product.madein %></p>  
+ 	  </div>
+
+ 		
+  		<div class="col-md-6">
+  		 <h4 mb-3>Specifications</h4>
+   		<h6 class="text-muted">Material</h6>
+   		<p><%= product.specs.material %></p>
+   		<h6 class="text-muted">Size</h6>
+   		<p><%= product.specs.size %></p>
+   		<h6 class="text-muted">Color</h6>
+   		<p><%= product.specs.color %></p>
+   		<h6 class="text-muted">Weight</h6>
+   		<p><%= product.specs.weight %></p>
+  		</div>
+ 	 </div>
+ 	 
+ 	 <h6 class="text-muted">SKU</h6>
+ 	 <p><%= product.details.SKU %></p>
+ 	 <h6 class="text-muted">VID</h6>
+ 	 <p><%= product.details.VID %></p>
+ 	</div>
+ </div>
+
+ </div>
+</div>

@@ -1,0 +1,21 @@
+<% include ./partials/header %>
+
+<div class="content-wrapper">
+ <div class="container-fluid">
+ <!-- Breadcrumbs-->
+ <ol class="breadcrumb">
+   <li class="breadcrumb-item">
+      <a href="/dashboard">Dashboard</a>
+   </li>
+   <li class="breadcrumb-item active">
+      <a href="/dashboard/products">Products</a>
+   </li>
+   <li class="breadcrumb-item active"><%= product.title %></li>
+ </ol>
+ 
+ <% include ../uni-showcase.ejs %>
+ 
+ </div>
+</div>
+
+<% include ./partials/footer %>

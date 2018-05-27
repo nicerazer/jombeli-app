@@ -1,0 +1,92 @@
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    <footer class="sticky-footer">
+      <div class="container">
+        <div class="text-center">
+          <small>Copyright © Your Website 2018</small>
+        </div>
+      </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="login.html">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Bootstrap core JavaScript-->
+    <script src="/cms/vendor/jquery/jquery.min.js"></script>
+    <script src="/cms/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="/cms/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="/cms/vendor/chart.js/Chart.min.js"></script>
+    <script src="/cms/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="/cms/vendor/datatables/dataTables.bootstrap4.js"></script>
+    
+    <!-- EXTERNAL PLUGINS -->
+    <!--<script>-->
+      <!--// As opposed to just "io();" when express is serving both front and back:-->
+    <!--  var socket = io('http://backend:3000');  -->
+    
+    <!--  socket.on('foo', function (data) {-->
+    <!--    console.log(data);-->
+    <!--  });-->
+    <!--</script>-->
+
+    <!-- Custom scripts for all pages-->
+    <script src="/cms/js/sb-admin.min.js"></script>
+    <!-- Custom scripts for this page-->
+    <script src="/cms/js/sb-admin-datatables.min.js"></script>
+    <script src="/cms/js/sb-admin-charts.min.js"></script>
+    <!-- Cloudinary image addon plugin -->
+    <script type="text/javascript" src="/addons/cloudinary_js/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/addons/cloudinary_js/js/jquery.ui.widget.js"></script>
+    <script type="text/javascript" src="/addons/cloudinary_js/js/jquery.iframe-transport.js"></script>
+    <script type="text/javascript" src="/addons/cloudinary_js/js/jquery.fileupload.js"></script>
+    <script type="text/javascript" src="/addons/cloudinary_js/js/jquery.cloudinary.js"></script>
+    <script>
+      // var cloudinary_cors = "https://" + request.headers.host + "/cloudinary_cors.html";
+      var cloudinary_cors = "https://https://jombeli-application-nicerazer.c9users.io/cloudinary_cors"; 
+
+      cloudinary.cloudinary_js_config();
+    
+      $(function() {
+        if($.fn.cloudinary_fileupload !== undefined) {
+          $("input.cloudinary-fileupload[type=file]").cloudinary_fileupload();
+        }
+      });
+      
+      cloudinary.v2.uploader.image_upload_tag('image_id', {callback: cloudinary_cors});
+
+      var url = require('url');
+      var url_parts = url.parse(request.url, true);
+      var query = url_parts.query;
+      
+      var preloaded_file = new cloudinary.PreloadedFile(query.image_id);
+      if (preloaded_file.is_valid()) {
+        photo.image_id = preloaded_file.identifier();
+      } else {
+        throw("Invalid upload signature");
+      }
+      
+    </script>
+  </div>
+</body>
+
+</html>

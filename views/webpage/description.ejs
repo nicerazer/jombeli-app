@@ -1,0 +1,127 @@
+<% include ./partials/header %>
+
+<header id="show-header">
+	<div class="container">
+		<nav class="my-3" aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="/categories">Category</a></li>
+				<li class="breadcrumb-item active"><%= category %></li>
+			</ol>
+		</nav>
+		<div class="mb-3">
+			<h3 class="h3"><%= category %></h3>
+			<p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium nisi, mollitia quisquam aut iusto officiis numquam voluptate reprehenderit aliquam magni sit, consectetur delectus maiores quo magnam sunt, sint eligendi hic?</p>
+		</div>
+	</div>
+</header>
+
+<div class="row no-gutters">
+	<!-- FILTERS SECTION / BOX -->
+	<div class="col-md-3">
+		<!-- FILTERS HEADER TAB -->
+		<div class="bg-secondary p-3">
+			<h5 class="text-white"><span><i class="fa fa-bars"></i></span>	Filter</h5>
+		</div>
+		<!-- ACTIVE FILTERS -->
+		<div class="bg-primary text-white p-3"><h6>Active Filters <span class="badge badge-secondary">4</span></h6></div>
+
+		<!-- PRICE FILTER -->
+		<div id="show-filter-section" class="border p-3 d-none">
+			<div class="d-flex align-items-center">
+				<h6>Price</h6>
+				<a href="#filter-price" class="ml-auto" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="filter-price"><i class="fa fa-chevron-down"></i></a>
+			</div>
+			<div id="filter-price" class="my-3 d-flex justify-content-center">
+				<input
+					type="text"
+					name="price-range"
+					data-provide="slider"
+					data-slider-range=true
+					data-slider-min="10"
+					data-slider-max="1000"
+					data-slider-step="1"
+				>
+			</div>
+		</div>
+
+		<!-- MATERIAL FILTER -->
+		<div class="border p-3">
+			<div class="d-flex align-items-center">
+			 <h6>Material</h6>
+			 <a href="#filter-material" class="ml-auto" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="filter-material"><i class="fa fa-chevron-down"></i></a>
+			</div>
+			
+			<div id="filter-material" class="collapse">
+			  <div class="form-group form-check">
+			    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+			    <label class="form-check-label" for="exampleCheck1">Cotton</label>
+			  </div>				
+			</div>
+				
+		</div>
+	</div>
+
+	<!-- PRODUCT LIST ITEMS -->
+	<div class="col-md-9">
+		<div class="p-3 d-flex border">				
+			<div class="ml-auto mr-5 dropdown">
+				<button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Availability
+				</button>
+				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+					<a class="dropdown-item" href="#">Action</a>
+					<a class="dropdown-item" href="#">Another action</a>
+					<a class="dropdown-item" href="#">Something else here</a>
+				</div>
+			</div>
+			<span class="mr-3">View</span>
+			<a href="#" class="mr-3"><i class="fa fa-list-ul"></i></a>
+			<a href="#" class="mr-3"><i class="fa fa-th"></i></a>
+		</div>
+
+		<!-- ITEMS LISTS (BOX) -->
+		<div id="show-item-list-box" class="row no-gutters d-none">
+			
+			<% products.forEach(function(product){ %>
+			<!-- PRODUCT ITEM BOX -->
+			<div class="col-lg-4 col-md-6 border p-5">
+				<img class="d-flex mx-auto mb-3" src="/webpage/img/mockups/img200x200.svg" alt="">
+				<div class="mb-2 star-ratings-sprite"><span style="width:52%" class="star-ratings-sprite-rating"></span></div>
+				<h4 class="text-center mb-2"><%= product.title %></h4>
+				<div class="d-flex mb-2">
+					<small>XXX Stores</small><small class="ml-auto">from RM<%= product.price %></small>
+				</div>
+				<div class="d-flex justify-content-center">
+					<a class="btn btn-outline-primary btn-sm" href="/explore/<%= product.category %>/<%= product._id %>/more">More Info</a>
+				</div>
+			</div>
+			<% }); %>
+
+		</div>
+
+		<% products.forEach(function(product){ %>
+		<!-- ITEMS LISTS (TABLE) -->
+		<div id="show-items-list-table" class="d-flex align-items-center row mb-3 p-3 border no-gutters">
+			<div class="col-6">
+				<div class="media align-items-center">
+					<img class="mr-3" src="/webpage/img/mockups/img64x64.svg" alt="Generic placeholder image">
+					<div class="media-body">
+						<h5><%= product.title %></h5>
+						<small>
+							<%= product.description.substring(0,50) %>...
+						</small>
+					</div>
+				</div>
+			</div>
+			<div class="col-6 row d-flex align-items-center">
+				<div class="col-5 d-flex px-2"><small class="ml-1">STAR RATING</small><small class="ml-auto">XX stores</small></div>
+				<div class="col-3"><small>from RM<%= product.price%></small></div>
+				<div class="col-4"><a href="/explore/<%= product.category %>/<%= product._id %>/more" class="btn btn-primary btn-md">More</a></div>
+			</div>
+		</div>
+		<% }); %>
+
+	</div>
+</div>
+
+<% include ./partials/footer %>
