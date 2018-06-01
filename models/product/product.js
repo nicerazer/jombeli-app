@@ -15,6 +15,7 @@ var productSchema = new mongoose.Schema({
 	madein	: String,
 
 	imgUrl		: [{url:String}],
+	// imgUrl		: String,
 	created		: {type:Date, default: Date.now},
 	updated		: {type:Date, default: Date.now},
 	specs		:

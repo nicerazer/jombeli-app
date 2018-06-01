@@ -16,7 +16,7 @@
       <div class="col-12">
         <h1>Add a new product</h1>
         <!--<p>This is an example of a blank page that you can use as a starting point for creating new ones.</p>-->
-        <form action="/dashboard/products" method="POST">
+        <form action="/dashboard/products" enctype="multipart/form-data" method="POST">
           <div class="row">
             <div class="col-sm-6">
               <div class="card mb-3">
@@ -50,7 +50,7 @@
               <div class="card mb-3">
                 <div class="card-body">
                   <div class="custom-file">
-                    <input name="product[imgUrl]" type="file" class="custom-file-input" id="imageFile">
+                    <input name="img-product" type="file" class="custom-file-input" id="imageFile">
                     <label class="custom-file-label" for="imageFile">Upload Images</label>
                   </div>
                 </div>
@@ -120,7 +120,7 @@
                       <div class="input-group">
                         <input name="product[specs.weight]" type="number" class="form-control" id="inputPrice" placeholder="Price" value="5">
                         <div class="input-group-prepend">
-                          <div class="input-group-text">KG</div>
+                          <div class="input-group-text">kg</div>
                         </div>
                       </div>
                     </div>

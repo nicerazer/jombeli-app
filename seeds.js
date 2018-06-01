@@ -1,14 +1,17 @@
 var mongoose = require("mongoose"),
-    Products = require("./models/product/product.js");
+    Products = require("./models/product/product.js"),
+    Category = require("./models/product/category.js"),
+    Authority= require("./models/admin/authority.js");
 
-var data = [
+var product = [
     {
-    	title		: "Product 1",
-    	category	: "accessories",
-    	price		: 50,
+    	title		   : "Product 1",
+    	category	   : "accessories",
+    	price		   : 50,
     	description	: "Lorem ipsum dolor sit amet, nec ex solum scriptorem omittantur. Usu te fuisset atomorum suavitate. Te esse mnesarchum adversarium duo, ex ius facer nusquam, at usu dolorum invenire. Est ei debet quando voluptua, an eleifend definitionem nec, duo ex homero maiestatis democritum. His homero inermis ut, te per paulo mnesarchum. Urbanitas scriptorem sea no. Scriptorem vituperatoribus eum cu. Te tollit semper epicurei vim. Cu ipsum tempor animal pri, ei aeterno euismod signiferumque sea. Justo veritus disputando ius in, iudico pericula cum at. Sea et legere fuisset gloriatur.",
-    	isActive	: true,
-    	discounts	: 50,
+    	isActive	   : true,
+    	discounts   : 50,
+    	imgUrl      : [{url:"https://res.cloudinary.com/nicerazer/image/upload/v1527577780/jombeli_app/products/img-product.jpg"}],
     	
     	brand	: "XYZ",
     	model	: "ABC-123",
@@ -19,81 +22,85 @@ var data = [
     		{
     			size		: 50,
     			material	: "Fabric",
-    			weight		: 2,
+    			weight	: 2,
     		},
     	details : {
     		SKU : "BSND-123123-123ASDKJ",
     		VID : "192038ABC4343434ALK123CN",
          }
-    },
-    {
-    	title		: "Product 1",
-    	category	: "accessories",
-    	price		: 50,
-    	description	: "Lorem ipsum dolor sit amet, nec ex solum scriptorem omittantur. Usu te fuisset atomorum suavitate. Te esse mnesarchum adversarium duo, ex ius facer nusquam, at usu dolorum invenire. Est ei debet quando voluptua, an eleifend definitionem nec, duo ex homero maiestatis democritum. His homero inermis ut, te per paulo mnesarchum. Urbanitas scriptorem sea no. Scriptorem vituperatoribus eum cu. Te tollit semper epicurei vim. Cu ipsum tempor animal pri, ei aeterno euismod signiferumque sea. Justo veritus disputando ius in, iudico pericula cum at. Sea et legere fuisset gloriatur.",
-    	isActive	: true,
-    	discounts	: 50,
-    	
-    	brand	: "XYZ",
-    	model	: "ABC-123",
-    	manufacturer : "MANU-FACT",
-    	madein	: "CHINA",
-    
-    	specs		:
-    		{
-    			size		: 50,
-    			material	: "Fabric",
-    			weight		: 2,
-    		},
-    	details : {
-    		SKU : "BSND-123123-123ASDKJ",
-    		VID : "192038ABC4343434ALK123CN",
-         }
-    },
-    {
-    	title		: "Product 1",
-    	category	: "accessories",
-    	price		: 50,
-    	description	: "Lorem ipsum dolor sit amet, nec ex solum scriptorem omittantur. Usu te fuisset atomorum suavitate. Te esse mnesarchum adversarium duo, ex ius facer nusquam, at usu dolorum invenire. Est ei debet quando voluptua, an eleifend definitionem nec, duo ex homero maiestatis democritum. His homero inermis ut, te per paulo mnesarchum. Urbanitas scriptorem sea no. Scriptorem vituperatoribus eum cu. Te tollit semper epicurei vim. Cu ipsum tempor animal pri, ei aeterno euismod signiferumque sea. Justo veritus disputando ius in, iudico pericula cum at. Sea et legere fuisset gloriatur.",
-    	isActive	: true,
-    	discounts	: 50,
-    	
-    	brand	: "XYZ",
-    	model	: "ABC-123",
-    	manufacturer : "MANU-FACT",
-    	madein	: "CHINA",
-    
-    	specs		:
-    		{
-    			size		: 50,
-    			material	: "Fabric",
-    			weight		: 2,
-    		},
-    	details : {
-    		SKU : "BSND-123123-123ASDKJ",
-    		VID : "192038ABC4343434ALK123CN",
-         }
-    },
+    }
     ];
+    
+    /*
+AUTHORITY LIST
+1. MASTER ADMIN
+2. ADMIN
+3. EDITOR
+*/
+var authority_arr = [
+	{type	: "MASTER"},
+	{type	: "ADMIN"},
+	{type	: "EDITOR"},
+];
+
+var category_arr = [
+	{name	: "clothings"},
+	{name	: "accessories"},
+	{name	: "shoes"},
+	{name	: "bags"},
+	{name	: "sports"},
+	{name	: "watches"},
+	{name	: "groomings"},
+	{name	: "electronics"},
+];
 
 function seedDB(){
-    Products.remove({}, function(err){
-        if(err){
-            console.log(err);
-        } else {
-            console.log("Removed Products");
-            data.forEach(function(seed){
-            Products.create(seed, function(err, created){
-                if(err){
-                    console.log(err);
-                } else {
-                    console.log("Added a product!");
-                }
-            });
-            
-        });
-        }
+ Products.remove({}, function(err){
+  if(err){
+      console.log(err);
+  } else {
+      console.log("Removed Products");
+      product.forEach(function(seed){
+       Products.create(seed, function(err, created){
+          if(err){
+              console.log(err);
+          } else {
+              console.log("Added a product!");
+          }
+       });
     });
+  }
+ });
+ Category.remove({}, function(err){
+   if (err){
+    console.log(err);
+   } else {
+    category_arr.forEach(function(seed){
+       Category.create(seed, function(err, createdObj){
+     		if(err){
+     			console.log(err);
+     		}	else {
+     			console.log("Added a category!");
+     		}
+      });
+   });
+ }
+ });
+ Authority.remove({}, function(err){
+   if (err){
+      console.log(err);
+   } else {
+      authority_arr.forEach(function(seed){
+      	Authority.create(seed, function(err, createdAuthority){
+      		if(err){
+      			console.log(err);
+      		}	else {
+      			console.log("Created an authority!");
+      		}
+      	});
+      });
+   }
+ });
 }
 
 module.exports = seedDB;

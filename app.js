@@ -1,14 +1,16 @@
 var express   	= require("express"),
 		mongoose		= require("mongoose"),
 		bodyParser  = require("body-parser"),
+		multer			= require("multer"),
 		cloudinary	= require("cloudinary"),
+		del					= require("del"),
 		seedDB			= require("./seeds.js"),
+		
 		
 		passport							= require("passport"),
 		LocalStrategy 				= require("passport-local"),
 		passportLocalMongoose = require("passport-local-mongoose");
-
-seedDB();
+		
 
 var	// MODELS VARIABLE
 Admin			= require("./models/admin/admin.js"),
@@ -18,72 +20,18 @@ Category	= require("./models/product/category.js"),
 Feedback	= require("./models/product/feedback.js"),
 User			= require("./models/user/user.js");
 
-/*
-AUTHORITY LIST
-1. MASTER ADMIN
-2. ADMIN
-3. EDITOR
-*/
-// var authority_arr = [
-// 	{type	: "MASTER"},
-// 	{type	: "ADMIN"},
-// 	{type	: "EDITOR"},
-// ];
+var url = process.env.DATABASEURL || "mongodb://localhost/jombeli";
 
-// authority_arr.forEach(function(seed){
-// 	Authority.create(seed, function(err, createdAuthority){
-// 		if(err){
-// 			console.log(err);
-// 		}	else {
-// 			console.log(createdAuthority);
-// 		}
-// 	});
-// });
-// var MASTER_ID;
-// Admin.create({
-// 	username	: "IAMADMIN",
-// 	email			: "someone@example.com",
-// 	password	: "password",
-// 	phone			: "",
-// 	authority	: "MASTER"
-// }, function(err, createdItem){
-// 	if(err){
-// 		console.log(err);
-// 	}	else {
-// 		console.log(createdItem);
-// 	}
-// });
+mongoose.connect(url);
 
-// var category_arr = [
-// 	{name	: "clothings"},
-// 	{name	: "accessories"},
-// 	{name	: "shoes"},
-// 	{name	: "bags"},
-// 	{name	: "sports"},
-// 	{name	: "watches"},
-// 	{name	: "groomings"},
-// 	{name	: "electronics"},
-// ];
+seedDB();
 
-// category_arr.forEach(function(seed){
-// 	Category.create(seed, function(err, createdObj){
-// 		if(err){
-// 			console.log(err);
-// 		}	else {
-// 			console.log(createdObj);
-// 		}
-// 	});
-// });
-
-
-// var // ROUTES
-// dashboard	= require("./routes/dashboard.js");
 
 /////////
 // API //
 /////////
 
-// CLOUDINARY
+// CLOUDINARY CONFIG
 
 cloudinary.config({ 
   cloud_name: 'nicerazer', 
@@ -91,8 +39,41 @@ cloudinary.config({
   api_secret: 'khNzikmGFNT3-yGWaS77Xhu1Ow4' 
 });
 
-mongoose.connect(process.env.DATABASEURL);
-// mongodb://<dbuser>:<dbpassword>@ds237610.mlab.com:37610/jombeli-beta
+// MULTER CONFIG: to get file photos to temp server storage
+const multerConfig = {
+
+storage: multer.diskStorage({
+//Setup where the user's file will go
+destination: function(req, file, next){
+ next(null, './public/temp-photo-storage');
+ },
+  
+  //Then give the file a unique name
+  filename: function(req, file, next){
+      console.log(file);
+      const ext = file.mimetype.split('/')[1];
+      // next(null, file.fieldname + '-' + Date.now() + '.'+ext);
+      next(null, file.fieldname + '-' + Date.now());
+    }
+  }),
+  
+  //A means of ensuring only images are uploaded. 
+  fileFilter: function(req, file, next){
+      if(!file){
+        next();
+      }
+    const image = file.mimetype.startsWith('image/');
+    if(image){
+      console.log('Photo uploaded');
+      next(null, true);
+    } else {
+      console.log("File not supported");
+      
+      //TODO:  A better message response to user on failure.
+      return next();
+    }
+  }
+};
 
 var	app = express();
 
@@ -249,11 +230,32 @@ app.get("/dashboard/products/new", isLoggedIn, function(req, res){
 	res.render("cms/products-new");
 });
 
-app.post("/dashboard/products", isLoggedIn, function(req, res){
+app.post("/dashboard/products", isLoggedIn, multer(multerConfig).single('img-product'), function(req, res){
+	var url;
   Product.create(req.body.product, function(err, newProduct){
   	if(err){
   		res.render("cms/products-new");
   	} else {
+  		console.log("Uploaded the image into server");
+  		cloudinary.v2.uploader.upload('./public/temp-photo-storage/'+req.file.filename, {public_id: "jombeli_app/products/" + req.file.filename}, function(err, result){
+		    	if(err){
+		    		console.log(err);
+		    	} else {
+			    	console.log("Uploaded image file into cloudinary");
+		    		url = "https://res.cloudinary.com/nicerazer/image/upload/v1527577780/" + result.public_id + ".jpg";
+						Product.findByIdAndUpdate(newProduct._id, {$push:{imgUrl: {url:url}}},function(err, updatedProduct){
+							if (err){
+								console.log(err);
+							} else {
+								console.log(updatedProduct);
+							}
+						});
+						del(['./public/temp-photo-storage/*']).then(paths => {
+				    	console.log('Deleted files and folders:\n', paths.join('\n'));
+						});
+					}
+		    });
+
 			res.redirect("/dashboard/products");
   	}
   });
@@ -279,11 +281,6 @@ app.get("/dashboard/products/:id/edit", isLoggedIn, function(req, res){
 			res.render("cms/products-edit", {product:foundProduct});
   	}
   });
-});
-
-// ADDON ROUTES
-app.get("/cloudinary_cors", function(req, res){
-	res.render("../public/addons/cloudinary_js/html/cloudinary_cors.html");
 });
 
 app.get("*", function(req, res){
