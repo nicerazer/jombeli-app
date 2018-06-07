@@ -1,24 +1,23 @@
 var mongoose = require("mongoose");
 
 var productSchema = new mongoose.Schema({
-	title		: String,
-	category	: String,
-	price		: Number,
-	description	: String,
-	rating		: Number,
-	isActive	: Boolean,
-	discounts	: Number,
+	title		 : String,
+	category	 : String,
+	price		 : Number,
+	description	 : String,
+	rating		 : Number,
+	isActive	 : Boolean,
+	discounts	 : Number,
 	
-	brand	: String,
-	model	: String,
+	brand		 : String,
+	model		 : String,
 	manufacturer : String,
-	madein	: String,
-
-	imgUrl		: [{url:String}],
-	// imgUrl		: String,
-	created		: {type:Date, default: Date.now},
-	updated		: {type:Date, default: Date.now},
-	specs		:
+	madein		 : String,
+	webRef		 : [{url:String}],
+	imgUrl		 : [{url:String}],
+	created		 : {type:Date, default: Date.now},
+	updated		 : {type:Date, default: Date.now},
+	specs		 :
 		{
 			size		: Number,
 			material	: String,
@@ -28,7 +27,8 @@ var productSchema = new mongoose.Schema({
 		SKU : String,
 		VID : String,
 	},
-	reviews	    :[{type	: mongoose.Schema.Types.ObjectId, ref : "Review"}]
+	approved : Boolean,
+	reviews	 :[{type : mongoose.Schema.Types.ObjectId, ref : "Review"}]
 });
 
 module.exports = mongoose.model("Product", productSchema);

@@ -4,6 +4,7 @@ var express   	= require("express"),
 		multer			= require("multer"),
 		cloudinary	= require("cloudinary"),
 		del					= require("del"),
+		methodOverride = require("method-override"),
 		seedDB			= require("./seeds.js"),
 		
 		
@@ -82,7 +83,6 @@ app.use(require("express-session")({
 	resave: false,
 	saveUninitialized: false
 }));
-
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -98,6 +98,7 @@ app.use(function(req, res, next){
 app.use(bodyParser.urlencoded({extended:"true"}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
+app.use(methodOverride("_method"));
 
 app.get("/", function(req, res){
 	res.redirect("/home");
@@ -226,10 +227,12 @@ app.get("/dashboard/products", isLoggedIn, function(req, res){
   });
 });
 
+// NEW SHOW
 app.get("/dashboard/products/new", isLoggedIn, function(req, res){
 	res.render("cms/products-new");
 });
 
+// NEW POST
 app.post("/dashboard/products", isLoggedIn, multer(multerConfig).single('img-product'), function(req, res){
 	var url;
   Product.create(req.body.product, function(err, newProduct){
@@ -238,40 +241,29 @@ app.post("/dashboard/products", isLoggedIn, multer(multerConfig).single('img-pro
   	} else {
   		console.log("Uploaded the image into server");
   		cloudinary.v2.uploader.upload('./public/temp-photo-storage/'+req.file.filename, {public_id: "jombeli_app/products/" + req.file.filename}, function(err, result){
-		    	if(err){
-		    		console.log(err);
-		    	} else {
-			    	console.log("Uploaded image file into cloudinary");
-		    		url = "https://res.cloudinary.com/nicerazer/image/upload/v1527577780/" + result.public_id + ".jpg";
-						Product.findByIdAndUpdate(newProduct._id, {$push:{imgUrl: {url:url}}},function(err, updatedProduct){
-							if (err){
-								console.log(err);
-							} else {
-								console.log(updatedProduct);
-							}
-						});
-						del(['./public/temp-photo-storage/*']).then(paths => {
-				    	console.log('Deleted files and folders:\n', paths.join('\n'));
-						});
-					}
-		    });
-
-			res.redirect("/dashboard/products");
+	    	if(err){
+	    		console.log(err);
+	    	} else {
+		    	console.log("Uploaded image file into cloudinary");
+	    		url = "https://res.cloudinary.com/nicerazer/image/upload/v1527577780/" + result.public_id + ".jpg";
+					Product.findByIdAndUpdate(newProduct._id, {$push:{imgUrl: {url:url}}},function(err, updatedProduct){
+						if (err){
+							console.log(err);
+						} else {
+							console.log(updatedProduct);
+							res.redirect("/dashboard/products");
+						}
+					});
+					del(['./public/temp-photo-storage/*']).then(paths => {
+			    	console.log('Deleted files and folders:\n', paths.join('\n'));
+					});
+				}
+	    });
   	}
   });
 });
 
-app.get("/dashboard/products/:id", isLoggedIn, function(req, res){
-	Product.findById(req.params.id, function(err, foundProduct){
-  	if(err){
-  		console.log(err);
-			res.redirect("/dashboard");
-  	} else {
-			res.render("cms/products-show", {product:foundProduct});
-  	}
-	});
-});
-
+//EDIT SHOW
 app.get("/dashboard/products/:id/edit", isLoggedIn, function(req, res){
   Product.findById(req.params.id, function(err, foundProduct){
   	if(err){
@@ -279,6 +271,37 @@ app.get("/dashboard/products/:id/edit", isLoggedIn, function(req, res){
   		res.redirect("dashboard/products");
   	} else {
 			res.render("cms/products-edit", {product:foundProduct});
+  	}
+  });
+});
+
+// EDIT UPDATE
+app.put("/dashboard/products", isLoggedIn, multer(multerConfig).single('img-product'), function(req, res){
+	var url;
+  Product.findByIdAndUpdate(req.body.product._id, req.body.product,function(err, updatedProduct){
+  	if(err){
+  		res.redirect("/dashboard/products" + req.body.product + "edit");
+  	} else {
+  		console.log("Uploaded the image into server");
+  		cloudinary.v2.uploader.upload('./public/temp-photo-storage/'+req.file.filename, {public_id: "jombeli_app/products/" + req.file.filename}, function(err, result){
+	    	if(err){
+	    		console.log(err);
+	    	} else {
+		    	console.log("Uploaded image file into cloudinary");
+	    		url = "https://res.cloudinary.com/nicerazer/image/upload/v1527577780/" + result.public_id + ".jpg";
+					Product.findByIdAndUpdate(updatedProduct._id, {$push:{imgUrl: {url:url}}},function(err, updatedProductInner){
+						if (err){
+							console.log(err);
+						} else {
+							console.log(updatedProductInner);
+							res.redirect("/dashboard/products");
+						}
+					});
+					del(['./public/temp-photo-storage/*']).then(paths => {
+			    	console.log('Deleted files and folders:\n', paths.join('\n'));
+					});
+				}
+	    });
   	}
   });
 });

@@ -8,20 +8,17 @@
         <a href="/dashboard">Dashboard</a>
       </li>
       <li class="breadcrumb-item">
-        <a href="/dashboard/products">Products</a>
+        <a href="/dashboard/products">Product</a>
       </li>
-      <li class="breadcrumb-item">
-        <a href="/dashboard/products/<%= product.id %>"><%= product.title %></a>
-      </li>
-      <li class="breadcrumb-item active">Edit</li>
+      <li class="breadcrumb-item active">New</li>
     </ol>
     <div class="row">
       <div class="col-12">
-        <h1>Edit item <%= product.title %></h1>
+        <h1>Add a new product</h1>
         <!--<p>This is an example of a blank page that you can use as a starting point for creating new ones.</p>-->
-        <form action="/dashboard/products" method="POST">
+        <form action="/dashboard/products/<%= id %>?_method=PUT" enctype="multipart/form-data" method="POST">
           <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-7">
               <div class="card mb-3">
                 <div class="card-body">
                   <h5 class="card-title">Product basics</h5>
@@ -29,21 +26,21 @@
                   <!--FORM BASICS-->
                   <div class="form-row">
                     <div class="col-8 form-group">
-                      <input name="product[title]" type="text" class="form-control" id="inputTitle" placeholder="Title">
+                      <input name="product[title]" type="text" value="<%= product.title %>" class="form-control" id="inputTitle" placeholder="Title">
                     </div>
                     <div class="col-4 form-group">
                       <div class="input-group">
                         <div class="input-group-prepend">
                           <div class="input-group-text">RM</div>
                         </div>
-                        <input name="product[price]" type="number" class="form-control" id="inputPrice" placeholder="Price" value="10">
+                        <input name="product[price]" type="number" class="form-control" id="inputPrice" placeholder="Price" value="<%= product.price %>">
                       </div>
                     </div>
                   </div>
                   
                   <div class="form-group">
                     <label>Description</label>
-                    <textarea name="product[description]" type="text" class="form-control" placeholder="A brief of product..." rows="7"></textarea>
+                    <textarea name="product[description]" type="text" class="form-control" placeholder="A brief of product..." rows="7"><%= product.description %></textarea>
                   </div>
                   
                 </div>
@@ -53,38 +50,47 @@
               <div class="card mb-3">
                 <div class="card-body">
                   <div class="custom-file">
-                    <input name="product[imgUrl]" type="file" class="custom-file-input" id="imageFile">
+                    <input name="img-product" type="file" class="custom-file-input" id="imageFile">
                     <label class="custom-file-label" for="imageFile">Upload Images</label>
                   </div>
                 </div>
               </div>
               
+              <div class="card mb-3">
+                <div class="card-body">
+                  <h4 class="card-title">Website Links</h4>
+                    <input placeholder="link" name="product[webRef[0].url]" type="text" class="mb-2 form-control">
+                    <input placeholder="link" name="product[webRef[1].url]" type="text" class="mb-2 form-control">
+                    <input placeholder="link" name="product[webRef[2].url]" type="text" class="mb-2 form-control">
+                </div>
+              </div>
+              
             </div>
             <!--RIGHT SIDE FORM HERE-->
-            <div class="col-sm-6">
+            <div class="col-sm-5">
               
               <div class="card bg-dark text-white mb-3">
 
                 <div class="card-body">
                   <div class="form-group">
                     <label>Brand</label>
-                    <input name="product[brand]" type="text" class="form-control" id="inputDescription" placeholder="Enter product brand" rows="7"></input>
+                    <input name="product[brand]" type="text" class="form-control" id="inputDescription" placeholder="Enter product brand" rows="7" value="<%= product.brand %>">
                   </div>
   
                   <div class="form-row">
                     <div class="form-group col-md-6">
                       <label>Model</label>
-                      <input name="product[model]" type="text" class="form-control"></input>
+                      <input name="product[model]" type="text" class="form-control" value="<%= product.model %>">
                     </div>
                     <div class="form-group col-md-6">
                       <label>Manufacturer</label>
-                      <input name="product[manufacturer]" type="text" class="form-control"></input>
+                      <input name="product[manufacturer]" type="text" class="form-control" value="<%= product.manufacturer %>"></input>
                     </div>
                   </div>
                   
                   <div class="form-group">
                     <label>Made in</label>
-                    <input name="product[madein]" type="text" class="form-control"></input>
+                    <input name="product[madein]" type="text" class="form-control" value="<%= product.madein %>"></input>
                   </div>
                   
                 </div>
@@ -95,7 +101,7 @@
                   <div class="form-group">
                     <label for="inputCategory">Category</label>
                     
-                    <select name="product[category]" class="form-control" id="inputCategory">
+                    <select name="product[category]" class="form-control" id="inputCategory" value="<%= product.category %>">
                       <option value="clothings">Clothings</option>
                       <option value="accessories">Accessories</option>
                       <option value="shoes">Shoes</option>
@@ -109,25 +115,25 @@
     
                   <div class="form-group">
                     <label>Material</label>
-                    <input name="product[specs.material]" type="text" class="form-control" id="inputDescription" placeholder="Enter product brand" rows="7"></input>
+                    <input name="product[specs.material]" type="text" class="form-control" id="inputDescription" placeholder="Enter product material" rows="7" value="<%= product.material %>">
                   </div>
   
                   <div class="form-row">
                     <div class="col-md-6 form-group">
                       <label>Size</label>
-                      <input name="product[specs.size]" type="number" class="form-control"></input>
+                      <input name="product[specs.size]" type="number" class="form-control" value="<%= product.specs.size %>">
                     </div>
                     
                     <div class="form-group col-md-6">
                       <label>Weight</label>
                       <div class="input-group">
-                        <input name="product[specs.weight]" type="number" class="form-control" id="inputPrice" placeholder="Price" value="5">
+                        <input name="product[specs.weight]" type="number" class="form-control" id="inputPrice" placeholder="Weight" value="<%= product.specs.weight %>">
                         <div class="input-group-prepend">
-                          <div class="input-group-text">KG</div>
+                          <div class="input-group-text">kg</div>
                         </div>
                       </div>
                     </div>
-                  </div>  
+                  </div>
                       
                 </div>
               </div>
@@ -139,7 +145,7 @@
                     <div class="col-sm-2">Active</div>
                     <div class="col-sm-10">
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="checkActive" name="product[isActive]">
+                        <input class="form-check-input" type="checkbox" id="checkActive" name="product[isActive]" value="<%= product.isActive %>">
                         <label class="form-check-label" for="checkActive">
                           Yes
                         </label>
@@ -151,7 +157,7 @@
                      <div class="col-5 form-group">
                       <label for="inputDiscount">Discounts</label>
                       <div >
-                      <select name="product[discount]" class="form-control" id="inputDiscount">
+                      <select name="product[discount]" class="form-control" id="inputDiscount" value="<%= product.discount %>">
                         <option value="5">5%</option>
                         <option value="10">10%</option>
                         <option value="20">20%</option>
