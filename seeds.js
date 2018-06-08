@@ -44,14 +44,38 @@ var authority_arr = [
 ];
 
 var category_arr = [
-	{name	: "clothings"},
-	{name	: "accessories"},
-	{name	: "shoes"},
-	{name	: "bags"},
-	{name	: "sports"},
-	{name	: "watches"},
-	{name	: "groomings"},
-	{name	: "electronics"},
+	{
+	   name	: "clothings",
+	   description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium nisi, mollitia quisquam aut iusto officiis numquam voluptate reprehenderit aliquam magni sit, consectetur delectus maiores quo magnam sunt, sint eligendi hic?"
+	},
+	{
+	   name	: "accessories",
+	   description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium nisi, mollitia quisquam aut iusto officiis numquam voluptate reprehenderit aliquam magni sit, consectetur delectus maiores quo magnam sunt, sint eligendi hic?"
+	},
+	{
+	   name	: "shoes",
+	   description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium nisi, mollitia quisquam aut iusto officiis numquam voluptate reprehenderit aliquam magni sit, consectetur delectus maiores quo magnam sunt, sint eligendi hic?"
+	},
+	{
+	   name	: "bags",
+	   description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium nisi, mollitia quisquam aut iusto officiis numquam voluptate reprehenderit aliquam magni sit, consectetur delectus maiores quo magnam sunt, sint eligendi hic?"
+	},
+	{
+	   name	: "sports",
+	   description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium nisi, mollitia quisquam aut iusto officiis numquam voluptate reprehenderit aliquam magni sit, consectetur delectus maiores quo magnam sunt, sint eligendi hic?"
+	},
+	{
+	   name	: "watches",
+	   description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium nisi, mollitia quisquam aut iusto officiis numquam voluptate reprehenderit aliquam magni sit, consectetur delectus maiores quo magnam sunt, sint eligendi hic?"
+	},
+	{
+	   name	: "groomings",
+	   description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium nisi, mollitia quisquam aut iusto officiis numquam voluptate reprehenderit aliquam magni sit, consectetur delectus maiores quo magnam sunt, sint eligendi hic?"
+	},
+	{
+	   name	: "electronics",
+	   description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium nisi, mollitia quisquam aut iusto officiis numquam voluptate reprehenderit aliquam magni sit, consectetur delectus maiores quo magnam sunt, sint eligendi hic?"
+	},
 ];
 
 function seedDB(){

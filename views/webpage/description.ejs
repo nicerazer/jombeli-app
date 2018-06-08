@@ -1,16 +1,18 @@
 <% include ./partials/header %>
 
+<% category.name = jsUcfirst(category.name) %>
+
 <header id="show-header">
 	<div class="container">
 		<nav class="my-3" aria-label="breadcrumb">
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="/categories">Category</a></li>
-				<li class="breadcrumb-item active"><%= category %></li>
+				<li class="breadcrumb-item"><a href="/category">Category</a></li>
+				<li class="breadcrumb-item active"><%= category.name %></li>
 			</ol>
 		</nav>
 		<div class="mb-3">
-			<h3 class="h3"><%= category %></h3>
-			<p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium nisi, mollitia quisquam aut iusto officiis numquam voluptate reprehenderit aliquam magni sit, consectetur delectus maiores quo magnam sunt, sint eligendi hic?</p>
+			<h3 class="h3"><%= category.name %></h3>
+			<p class="text-muted"><%= category.description %></p>
 		</div>
 	</div>
 </header>
@@ -104,7 +106,7 @@
 		<div id="show-items-list-table" class="d-flex align-items-center row mb-3 p-3 border no-gutters">
 			<div class="col-6">
 				<div class="media align-items-center">
-					<img class="mr-3" src="/webpage/img/mockups/img64x64.svg" alt="Generic placeholder image">
+					<img class="mr-3 img-fluid" style="object-fit:contain; width:100px; height:100px;" src="<%= product.imgUrl[0].url%>" alt="Image">
 					<div class="media-body">
 						<h5><%= product.title %></h5>
 						<small>
@@ -123,5 +125,11 @@
 
 	</div>
 </div>
+
+<% function jsUcfirst(string) 
+{
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+%>
 
 <% include ./partials/footer %>
