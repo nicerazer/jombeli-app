@@ -139,7 +139,7 @@ router.get("/dashboard/products/:id", isLoggedIn, function(req, res){
   		console.log(err);
   		res.redirect("dashboard/products");
   	} else {
-			res.render("cms/products-show", {product:foundProduct});
+		res.render("cms/products-show", {product:foundProduct});
   	}
   });
 });
@@ -151,7 +151,7 @@ router.get("/dashboard/products/new", isLoggedIn, function(req, res){
 
 // NEW POST
 router.post("/dashboard/products", isLoggedIn, multer(multerConfig).single('img-product'), function(req, res){
-	var url;
+  var url;
   Product.create(req.body.product, function(err, newProduct){
   	if(err){
   		res.render("cms/products-new");
@@ -163,18 +163,18 @@ router.post("/dashboard/products", isLoggedIn, multer(multerConfig).single('img-
 	    	} else {
 		    	console.log("Uploaded image file into cloudinary");
 	    		url = "https://res.cloudinary.com/nicerazer/image/upload/v1527577780/" + result.public_id + ".jpg";
-					Product.findByIdAndUpdate(newProduct._id, {$push:{imgUrl: {url:url}}},function(err, updatedProduct){
-						if (err){
-							console.log(err);
-						} else {
-							console.log(updatedProduct);
-							res.redirect("/dashboard/products");
-						}
-					});
-					del(['./public/temp-photo-storage/*']).then(paths => {
-			    	console.log('Deleted files and folders:\n', paths.join('\n'));
-					});
-				}
+				Product.findByIdAndUpdate(newProduct._id, {$push:{imgUrl: {url:url}}},function(err, updatedProduct){
+					if (err){
+						console.log(err);
+					} else {
+						console.log(updatedProduct);
+						res.redirect("/dashboard/products");
+					}
+				});
+				del(['./public/temp-photo-storage/*']).then(paths => {
+		    	console.log('Deleted files and folders:\n', paths.join('\n'));
+				});
+			}
 	    });
   	}
   });
@@ -194,7 +194,6 @@ router.get("/dashboard/products/:id/edit", isLoggedIn, function(req, res){
 
 // EDIT UPDATE
 router.put("/dashboard/products/:id", isLoggedIn, function(req, res){
-	// var url;
   Product.findByIdAndUpdate(req.params.id, req.body.product,function(err, updatedProduct){
   	if(err){
   		console.log(err);
@@ -202,26 +201,6 @@ router.put("/dashboard/products/:id", isLoggedIn, function(req, res){
   	} else {
   		console.log(updatedProduct);
   		res.redirect("/dashboard/products/");
-  		// console.log("Uploaded the image into server");
-  		// cloudinary.v2.uploader.upload('./public/temp-photo-storage/'+req.file.filename, {public_id: "jombeli_router/products/" + req.file.filename}, function(err, result){
-	   // 	if(err){
-	   // 		console.log(err);
-	   // 	} else {
-		  //   	console.log("Uploaded image file into cloudinary");
-	   // 		url = "https://res.cloudinary.com/nicerazer/image/upload/v1527577780/" + result.public_id + ".jpg";
-				// 	Product.findByIdAndUpdate(updatedProduct._id, {$push:{imgUrl: {url:url}}},function(err, updatedProductInner){
-				// 		if (err){
-				// 			console.log(err);
-				// 		} else {
-				// 			console.log(updatedProductInner);
-				// 			res.redirect("/dashboard/products");
-				// 		}
-				// 	});
-				// 	del(['./public/temp-photo-storage/*']).then(paths => {
-			 //   	console.log('Deleted files and folders:\n', paths.join('\n'));
-				// 	});
-				// }
-	   // });
   	}
   });
 });

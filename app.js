@@ -2,7 +2,6 @@ var
 express   	= require("express"),
 mongoose		= require("mongoose"),
 bodyParser  = require("body-parser"),
-// multer			= require("multer"),
 cloudinary	= require("cloudinary"),
 seedDB			= require("./seeds.js"),
 methodOverride = require("method-override"),
