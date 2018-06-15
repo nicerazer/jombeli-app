@@ -88,6 +88,23 @@ app.get("/explore/:category/:id/more", function(req, res){
 	});
 });
 
+app.get("/compare/:product_1/:product_2", function(req, res){
+	var query = Product.find({});
+
+	query.or([{title:req.params.product_1},{title:req.params.product_2}]);
+	// query.limit(2);
+
+	query.exec(function (err, products) {
+		if(err){
+			console.log("Query are not executed!");
+		} else {
+			res.render("webpage/compare", {products:products});
+		}
+  // called when the `query.complete` or `query.error` are called
+  // internally
+	});
+});
+
 // Search products...
 app.get("/explore/:category/:product", function(req, res){
 	var

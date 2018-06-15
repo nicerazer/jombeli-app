@@ -14,7 +14,7 @@
     </ol>
     <div class="row">
       <div class="col-12">
-        <h1>Add a new product</h1>
+        <h1>Edit item <%= product.title %></h1>
         <!--<p>This is an example of a blank page that you can use as a starting point for creating new ones.</p>-->
         <form action="/dashboard/products/<%= product.id %>?_method=PUT" method="POST">
         <!--<form action="/dashboard/products/<%= product.id %>?_method=PUT" enctype="multipart/form-data" method="POST">-->
@@ -46,16 +46,6 @@
                   
                 </div>
               </div>
-
-              <!--Image upload box-->
-              <div class="card mb-3">
-                <div class="card-body">
-                  <div class="custom-file">
-                    <input name="img-product" type="file" class="custom-file-input" id="imageFile">
-                    <label class="custom-file-label" for="imageFile">Upload Images</label>
-                  </div>
-                </div>
-              </div>
               
               <div class="card mb-3">
                 <div class="card-body">
@@ -63,6 +53,8 @@
                     <input placeholder="link" name="product[webRef[0].url]" type="text" class="mb-2 form-control">
                     <input placeholder="link" name="product[webRef[1].url]" type="text" class="mb-2 form-control">
                     <input placeholder="link" name="product[webRef[2].url]" type="text" class="mb-2 form-control">
+                    <input placeholder="link" name="product[webRef[3].url]" type="text" class="mb-2 form-control">
+                    <input placeholder="link" name="product[webRef[4].url]" type="text" class="mb-2 form-control">
                 </div>
               </div>
               
@@ -102,7 +94,7 @@
                   <div class="form-group">
                     <label for="inputCategory">Category</label>
                     
-                    <select name="product[category]" class="form-control" id="inputCategory" value="<%= product.category %>">
+                    <select name="product[category]" class="form-control" id="inputCategory" required="<%= product.category %>">
                       <option value="clothings">Clothings</option>
                       <option value="accessories">Accessories</option>
                       <option value="shoes">Shoes</option>

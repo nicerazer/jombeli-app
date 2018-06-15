@@ -1,0 +1,31 @@
+<% include ./partials/header %>
+
+<header id="compare-header">
+
+</header>
+
+<section id="compare-partnership" class="py-5">
+ <div class="container px-5">
+  <div class="card-deck">
+  	<% products.forEach(function(product){ %>
+	  <div class="card" style="width: 18rem;">
+	   <img class="card-img-top" src="<%= product.imgUrl[0].url %>" alt="Card image cap">
+	   <div class="card-body">
+	    <h5 class="card-title"><%= product.title %></h5>
+	    <p class="card-text">RM<%= product.price %></p>
+	    <p class="card-text"><%= product.speciality %></p>
+	    <hr>
+	    <ul class="list-group list-group-flush">
+	     <% product.webRef.forEach(function(ref){ %>
+	     <li class="list-group-item"><%= ref.url %><%= ref.price %></li>
+		 <% }); %>
+	    </ul>
+	    <a href="#" class="btn btn-primary">More</a>
+	   </div>
+	  </div>
+	<% }); %> 
+  </div>
+ </div>
+</section>
+
+<% include ./partials/footer %>

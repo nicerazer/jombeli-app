@@ -132,6 +132,12 @@ router.get("/dashboard/products", isLoggedIn, function(req, res){
   });
 });
 
+// NEW SHOW
+router.get("/dashboard/products/new", isLoggedIn, function(req, res){
+	res.render("cms/products-new");
+});
+
+
 // SHOW
 router.get("/dashboard/products/:id", isLoggedIn, function(req, res){
   Product.findById(req.params.id, function(err, foundProduct){
@@ -142,11 +148,6 @@ router.get("/dashboard/products/:id", isLoggedIn, function(req, res){
 		res.render("cms/products-show", {product:foundProduct});
   	}
   });
-});
-
-// NEW SHOW
-router.get("/dashboard/products/new", isLoggedIn, function(req, res){
-	res.render("cms/products-new");
 });
 
 // NEW POST

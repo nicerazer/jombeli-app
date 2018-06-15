@@ -13,7 +13,7 @@ var productSchema = new mongoose.Schema({
 	model		 : String,
 	manufacturer : String,
 	madein		 : String,
-	webRef		 : [{url:String}],
+	webRef		 : [{url:String},{price:Number}],
 	imgUrl		 : [{url:String}],
 	created		 : {type:Date, default: Date.now},
 	updated		 : {type:Date, default: Date.now},
@@ -27,6 +27,8 @@ var productSchema = new mongoose.Schema({
 		SKU : String,
 		VID : String,
 	},
+	// Write in words to represent the capabilty of the product; reason to make it special and over the other products
+	advantage : String,
 	approved : Boolean,
 	reviews	 :[{type : mongoose.Schema.Types.ObjectId, ref : "Review"}]
 });
