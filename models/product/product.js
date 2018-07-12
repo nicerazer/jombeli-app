@@ -13,8 +13,9 @@ var productSchema = new mongoose.Schema({
 	model		 : String,
 	manufacturer : String,
 	madein		 : String,
-	webRef		 : [{url:String},{price:Number}],
+	webRef		 : [{url:String, price:Number}],
 	imgUrl		 : [{url:String}],
+	// imgUrl		 : [String],
 	created		 : {type:Date, default: Date.now},
 	updated		 : {type:Date, default: Date.now},
 	specs		 :

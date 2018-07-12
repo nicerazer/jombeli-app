@@ -195,12 +195,32 @@ router.get("/dashboard/products/:id/edit", isLoggedIn, function(req, res){
 
 // EDIT UPDATE
 router.put("/dashboard/products/:id", isLoggedIn, function(req, res){
-  Product.findByIdAndUpdate(req.params.id, req.body.product,function(err, updatedProduct){
+  var	webRef_url	 = req.body.webRef.url,
+		webRef_price = req.body.webRef.price;
+	
+  Product.findByIdAndUpdate(
+  	req.params.id,
+  	req.body.product,
+  	function(err, updatedProduct){
   	if(err){
   		console.log(err);
   		res.redirect("/dashboard/products/");
   	} else {
-  		console.log(updatedProduct);
+  		console.log(req.body);
+  		Product.findByIdAndUpdate(
+  			req.params.id,
+  			// {$push:{'webRef':{'url':webRef_url, 'price':webRef_price}}},
+  			{$addToSet: {webRef:{$each:req.body.webRef}}},
+  			function(err, innerUpdated){
+  		 if(err){
+  		 	console.log(err);
+  		 	res.redirect("/dashboard/products/" + req.params.id);
+  		 } else {
+  		 	console.log("Updated web url array");
+  		 	console.log(innerUpdated);
+  		 }
+  		});
+  		// console.log(updatedProduct);
   		res.redirect("/dashboard/products/");
   	}
   });

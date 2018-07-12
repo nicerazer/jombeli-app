@@ -11,7 +11,32 @@ var product = [
     	description	: "Lorem ipsum dolor sit amet, nec ex solum scriptorem omittantur. Usu te fuisset atomorum suavitate. Te esse mnesarchum adversarium duo, ex ius facer nusquam, at usu dolorum invenire. Est ei debet quando voluptua, an eleifend definitionem nec, duo ex homero maiestatis democritum. His homero inermis ut, te per paulo mnesarchum. Urbanitas scriptorem sea no. Scriptorem vituperatoribus eum cu. Te tollit semper epicurei vim. Cu ipsum tempor animal pri, ei aeterno euismod signiferumque sea. Justo veritus disputando ius in, iudico pericula cum at. Sea et legere fuisset gloriatur.",
     	isActive	   : true,
     	discounts   : 50,
-    	imgUrl      : [{url:"https://res.cloudinary.com/nicerazer/image/upload/v1527577780/jombeli_app/products/img-product.jpg"}],
+    	imgUrl      : [{url : "https://res.cloudinary.com/nicerazer/image/upload/v1527577780/jombeli_router/products/img-product-1529076355953.jpg"}],
+    	
+    	brand	: "XYZ",
+    	model	: "ABC-123",
+    	manufacturer : "MANU-FACT",
+    	madein	: "CHINA",
+    
+    	specs		:
+    		{
+    			size		: 50,
+    			material	: "Fabric",
+    			weight	: 2,
+    		},
+    	details : {
+    		SKU : "BSND-123123-123ASDKJ",
+    		VID : "192038ABC4343434ALK123CN",
+         }
+    },
+    {
+    	title		   : "Product 1",
+    	category	   : "accessories",
+    	price		   : 50,
+    	description	: "Lorem ipsum dolor sit amet, nec ex solum scriptorem omittantur. Usu te fuisset atomorum suavitate. Te esse mnesarchum adversarium duo, ex ius facer nusquam, at usu dolorum invenire. Est ei debet quando voluptua, an eleifend definitionem nec, duo ex homero maiestatis democritum. His homero inermis ut, te per paulo mnesarchum. Urbanitas scriptorem sea no. Scriptorem vituperatoribus eum cu. Te tollit semper epicurei vim. Cu ipsum tempor animal pri, ei aeterno euismod signiferumque sea. Justo veritus disputando ius in, iudico pericula cum at. Sea et legere fuisset gloriatur.",
+    	isActive	   : true,
+    	discounts   : 50,
+    	imgUrl      : [{url : "https://res.cloudinary.com/nicerazer/image/upload/v1527577780/jombeli_router/products/img-product-1529076303356.jpg"}],
     	
     	brand	: "XYZ",
     	model	: "ABC-123",

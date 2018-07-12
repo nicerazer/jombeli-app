@@ -49,12 +49,22 @@
               
               <div class="card mb-3">
                 <div class="card-body">
-                  <h4 class="card-title">Website Links</h4>
-                    <input placeholder="link" name="product[webRef[0].url]" type="text" class="mb-2 form-control">
-                    <input placeholder="link" name="product[webRef[1].url]" type="text" class="mb-2 form-control">
-                    <input placeholder="link" name="product[webRef[2].url]" type="text" class="mb-2 form-control">
-                    <input placeholder="link" name="product[webRef[3].url]" type="text" class="mb-2 form-control">
-                    <input placeholder="link" name="product[webRef[4].url]" type="text" class="mb-2 form-control">
+                  <h4 class="card-title">Product links</h4>
+                  
+                  <% for(var i = 0; i<3; i++){ %>
+                  <div class="form-row mb-2">
+                    <div class="col-sm-8">
+                      <input placeholder="link" name="webRef[<%= i %>].[url]" value="<%= product.webRef[i].url%>" type="text" class="form-control">
+                    </div>
+                    <div class="col-sm-4 input-group">
+                      <input placeholder="price" name="webRef[<%= i %>].[price]" value="<%= product.webRef[i].price%>" type="number" class="form-control">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">RM</div>
+                      </div>
+                    </div>
+                  </div>
+                  <% } %>
+
                 </div>
               </div>
               
@@ -94,7 +104,7 @@
                   <div class="form-group">
                     <label for="inputCategory">Category</label>
                     
-                    <select name="product[category]" class="form-control" id="inputCategory" required="<%= product.category %>">
+                    <select name="product[category]" class="form-control" id="inputCategory" value="<%= product.category %>">
                       <option value="clothings">Clothings</option>
                       <option value="accessories">Accessories</option>
                       <option value="shoes">Shoes</option>

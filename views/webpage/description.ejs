@@ -118,7 +118,18 @@
 			<div class="col-6 row d-flex align-items-center">
 				<div class="col-5 d-flex px-2"><small class="ml-1">STAR RATING</small><small class="ml-auto">XX stores</small></div>
 				<div class="col-3"><small>from RM<%= product.price%></small></div>
-				<div class="col-4"><a href="/explore/<%= product.category %>/<%= product._id %>/more" class="btn btn-primary btn-md">More</a></div>
+				<div class="col-4 btn-group">
+					<a
+						href="/explore/<%= product.category %>/<%= product._id %>/more"
+						class="btn btn-primary btn-md">
+						 <i class="fa fa-bars"></i>
+					</a>
+					<a
+						href="/compare/<%= encodeURIComponent(product.title.trim()) %>/asdasd"
+						class="btn btn-primary btn-md">
+						 compare
+					</a>
+				</div>
 			</div>
 		</div>
 		<% }); %>

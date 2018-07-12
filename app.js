@@ -25,7 +25,7 @@ var url = process.env.DATABASEURL || "mongodb://localhost/jombeli";
 
 mongoose.connect(url);
 
-seedDB();
+// seedDB();
 
 
 /////////

@@ -17,13 +17,13 @@
 	    <hr>
 	    <ul class="list-group list-group-flush">
 	     <% product.webRef.forEach(function(ref){ %>
-	     <li class="list-group-item"><%= ref.url %><%= ref.price %></li>
+	     <li class="list-group-item d-flex"><span><%= ref.url %></span><span class="ml-auto">RM<%= ref.price %></span></li>
 		 <% }); %>
 	    </ul>
 	    <a href="#" class="btn btn-primary">More</a>
 	   </div>
 	  </div>
-	<% }); %> 
+	<% }); %>
   </div>
  </div>
 </section>

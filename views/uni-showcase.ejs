@@ -5,7 +5,14 @@
 			<h1><%= product.title %></h1>
 			<h3>RM<%= product.price %></h3>
 	  <h6><span class="badge badge-secondary"><%= product.category %></span></h6>
-  	<small><%= product.description %></small>
+  	<div class="mb-3">
+  	 <small><%= product.description %></small>
+ 	 </div>
+  	<ul class="list-group list-group-flush">
+    <% product.webRef.forEach(function(item){ %>
+     <small class="d-flex list-group-item"><%=item.url%><span class="ml-auto">RM<%=item.price%></span></small>
+    <% }) %>
+   </ul>
  	</div>
  </div>
 
